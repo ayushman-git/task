@@ -3,6 +3,7 @@
   "remote": {
     "https://deno.land/std@0.161.0/fmt/colors.ts": "9e36a716611dcd2e4865adea9c4bec916b5c60caad4cdcdc630d4974e6bb8bd4",
     "https://deno.land/x/cliffy@v0.25.4/_utils/distance.ts": "02af166952c7c358ac83beae397aa2fbca4ad630aecfcd38d92edb1ea429f004",
+    "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts": "df8c48c5a6b6fa50ceea9e6dfd031bef7257a02fd564e4c18ed9890a206c42ee",
     "https://deno.land/x/cliffy@v0.25.4/command/_errors.ts": "4fa6e1fa7d363a6ba20c401970da4634bca5a5352ece7005accc706a57407ae3",
     "https://deno.land/x/cliffy@v0.25.4/command/_utils.ts": "833aa9152bd36a610860261a6c4a2a3be4c31dbc10c24d076e75d09a9fa50d39",
     "https://deno.land/x/cliffy@v0.25.4/command/command.ts": "d51522506acad3a2424a7ba6d9dc98ccb622a68babcf152e116c0e104ad242bc",
@@ -45,6 +46,7 @@
     "https://deno.land/x/cliffy@v0.25.4/table/cell.ts": "1d787d8006ac8302020d18ec39f8d7f1113612c20801b973e3839de9c3f8b7b3",
     "https://deno.land/x/cliffy@v0.25.4/table/deps.ts": "e61aab0abd205058aba0e6a74ee9f25dd2f4127d41c8cc41146c7a81b5bc6a81",
     "https://deno.land/x/cliffy@v0.25.4/table/layout.ts": "46bf10ae5430cf4fbb92f23d588230e9c6336edbdb154e5c9581290562b169f4",
+    "https://deno.land/x/cliffy@v0.25.4/table/mod.ts": "e74f69f38810ee6139a71132783765feb94436a6619c07474ada45b465189834",
     "https://deno.land/x/cliffy@v0.25.4/table/row.ts": "5f519ba7488d2ef76cbbf50527f10f7957bfd668ce5b9169abbc44ec88302645",
     "https://deno.land/x/cliffy@v0.25.4/table/table.ts": "ec204c9d08bb3ff1939c5ac7412a4c9ed7d00925d4fc92aff9bfe07bd269258d",
     "https://deno.land/x/cliffy@v0.25.4/table/utils.ts": "187bb7dcbcfb16199a5d906113f584740901dfca1007400cba0df7dcd341bc29"
