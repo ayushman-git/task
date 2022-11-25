@@ -5,7 +5,7 @@ import { generateTable } from "../utils/tables.ts";
 const getTasks = () => {
   const db = new DB("src/db/main.db");
 
-  const tasks = db.query("SELECT * from tasks");
+  const tasks = db.query("SELECT * from tasks ORDER BY created_at DESC");
   db.close();
   return tasks;
 };
