@@ -1,6 +1,6 @@
 import { setupCommands } from "./commands/index.ts";
 import { DB } from "https://deno.land/x/sqlite/mod.ts";
-import { TaskStatus } from "./types/index.ts";
+import { TaskPriority, TaskStatus } from "./types/index.ts";
 
 setupCommands();
 
@@ -11,7 +11,7 @@ db.execute(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     status TEXT CHECK( pType IN ('${TaskStatus.TODO}','${TaskStatus.DOING}','${TaskStatus.DONE}') ) NOT NULL DEFAULT '${TaskStatus.TODO}',
-    priority TEXT CHECK( pType IN ('${TaskStatus.TODO}','${TaskStatus.DOING}','${TaskStatus.DONE}') ) NOT NULL DEFAULT '${TaskStatus.TODO}',
+    priority TEXT CHECK( pType IN ('${TaskPriority.LOW}','${TaskPriority.NORMAL}','${TaskPriority.HIGH}') ) NOT NULL DEFAULT '${TaskPriority.NORMAL}',
   )
 `);
 
