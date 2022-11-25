@@ -1,5 +1,5 @@
 {
     "tasks": {
-      "run": "deno run --allow-read=. --allow-write=. src/index.ts"
+      "run": "deno run --allow-read=. --allow-write=. src/index.ts create 'second message'"
     }
   }
