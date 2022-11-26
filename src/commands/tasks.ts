@@ -13,6 +13,7 @@ const getTasks = () => {
 const action = () => {
   const headers = ["ID", "Title", "Status", "Priority", "Created", "Due"];
   const body = getTasks();
+  console.log(body)
 
   generateTable(headers, body);
 };
