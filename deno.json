@@ -1,6 +1,6 @@
 {
     "tasks": {
-      "create": "deno run --allow-read=. --allow-write=. src/index.ts create 'second message' -s=doings",
+      "create": "deno run --allow-read=. --allow-write=. src/index.ts create 'second message'",
       "ls": "deno run --allow-read=. --allow-write=. src/index.ts tasks"
     }
   }
