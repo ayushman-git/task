@@ -11,7 +11,7 @@ const getTasks = () => {
   return tasks;
 };
 
-const covertDatetime = (data: Row[]) => {
+const covertDatetime = (data: Row[]): any[] => {
   return data.map((value) => {
     const newRow = value;
 
