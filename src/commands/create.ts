@@ -8,14 +8,26 @@ import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 
 const action: ActionHandler = ({ status }, message: string) => {
   const db = new DB("src/db/main.db");
+  if (!statusCheck(status)) {
+    console.log(
+      "❌",
+      colors.red("Accpected status values are"),
+      colors.red.bold("todo, doing and done."),
+    );
+    return;
+  }
 
-  const test = db.query("INSERT INTO tasks (title, status) VALUES (?, ?)", [
+  db.query("INSERT INTO tasks (title, status) VALUES (?, ?)", [
     message,
     status,
   ]);
-  console.log(test)
+
   db.close();
-  console.log(colors.green("Task created successfully ✔"))
+  console.log(colors.green("Task created successfully ✔"));
+};
+
+const statusCheck = (status: string) => {
+  return Object.values(TaskStatus).includes(status as TaskStatus);
 };
 
 export const create = new Command()
