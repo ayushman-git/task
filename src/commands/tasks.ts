@@ -1,5 +1,6 @@
 import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
+import { DB, Row } from "https://deno.land/x/sqlite/mod.ts";
+import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
 
 const getTasks = () => {
@@ -10,12 +11,23 @@ const getTasks = () => {
   return tasks;
 };
 
+const covertDatetime = (data: Row[]) => {
+  return data.map((value) => {
+    const newRow = value;
+
+    // [4] Created At
+    newRow[4] = convertToReadableDueAndCreated(new Date(newRow[4] as string));
+    // [5] Due
+    newRow[5] = newRow[5] &&
+      convertToReadableDueAndCreated(new Date(newRow[5] as string));
+    return newRow;
+  });
+};
+
 const action = () => {
   const headers = ["ID", "Title", "Status", "Priority", "Created", "Due"];
   const body = getTasks();
-  console.log(body)
-
-  generateTable(headers, body);
+  generateTable(headers, covertDatetime(body));
 };
 
 export const tasks = new Command()
