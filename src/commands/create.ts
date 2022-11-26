@@ -9,12 +9,17 @@ import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 const action: ActionHandler = ({ status, priority }, message: string) => {
   const db = new DB("src/db/main.db");
   if (status && !statusCheck(status)) return;
+  if (priority && !priorityCheck(priority)) return;
 
-  db.query("INSERT INTO tasks (title, status, priority) VALUES (?, ?, ?)", [
-    message,
-    status || TaskStatus.TODO,
-    priority || TaskPriority.NORMAL,
-  ]);
+  try {
+    db.query("INSERT INTO tasks (title, status, priority) VALUES (?, ?, ?)", [
+      message,
+      status || TaskStatus.TODO,
+      priority || TaskPriority.NORMAL,
+    ]);
+  } catch (_) {
+    console.log(colors.red.bold("Some internal error has occured!"));
+  }
 
   db.close();
   console.log(colors.green("✔ Task successfully created! "));
@@ -28,6 +33,22 @@ const statusCheck = (status: string) => {
       colors.red("Accepted status values are"),
       colors.red.bold(
         `${TaskStatus.TODO}, ${TaskStatus.DOING} and ${TaskStatus.DOING}.`,
+      ),
+    );
+  }
+  return isCorrect;
+};
+
+const priorityCheck = (priority: string) => {
+  const isCorrect = Object.values(TaskPriority).includes(
+    priority as TaskPriority,
+  );
+  if (!isCorrect) {
+    console.log(
+      "❌",
+      colors.red("Accepted priority values are"),
+      colors.red.bold(
+        `${TaskPriority.LOW}, ${TaskPriority.NORMAL} and ${TaskPriority.HIGH}.`,
       ),
     );
   }
