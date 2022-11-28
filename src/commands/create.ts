@@ -25,35 +25,7 @@ const action: ActionHandler = ({ status, priority }, message: string) => {
   console.log(colors.green("✔ Task successfully created! "));
 };
 
-const statusCheck = (status: string) => {
-  const isCorrect = Object.values(TaskStatus).includes(status as TaskStatus);
-  if (!isCorrect) {
-    console.log(
-      "❌",
-      colors.red("Accepted status values are"),
-      colors.red.bold(
-        `${TaskStatus.TODO}, ${TaskStatus.DOING} and ${TaskStatus.DOING}.`,
-      ),
-    );
-  }
-  return isCorrect;
-};
 
-const priorityCheck = (priority: string) => {
-  const isCorrect = Object.values(TaskPriority).includes(
-    priority as TaskPriority,
-  );
-  if (!isCorrect) {
-    console.log(
-      "❌",
-      colors.red("Accepted priority values are"),
-      colors.red.bold(
-        `${TaskPriority.LOW}, ${TaskPriority.NORMAL} and ${TaskPriority.HIGH}.`,
-      ),
-    );
-  }
-  return isCorrect;
-};
 
 export const create = new Command()
   .arguments("<message:string>")
