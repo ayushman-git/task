@@ -3,7 +3,7 @@ import {
   ActionHandler,
   Command,
 } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { DB, Row } from "https://deno.land/x/sqlite/mod.ts";
+import { DB, Row } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import { TaskPriority, TaskStatus } from "../types/index.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
