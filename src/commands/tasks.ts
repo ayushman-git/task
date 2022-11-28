@@ -66,7 +66,7 @@ const action = ({ priority, status }: any) => {
 export const tasks = new Command()
   .complete(
     "priority",
-    () => [TaskPriority.LOW, TaskPriority.NORMAL, TaskPriority.HIGH],
+    () => Object.values(TaskPriority),
   )
   .option(
     "-p, --priority <priority:string:priority>",
@@ -74,7 +74,7 @@ export const tasks = new Command()
   )
   .complete(
     "status",
-    () => [TaskStatus.TODO, TaskStatus.DOING, TaskStatus.DONE],
+    () => Object.values(TaskStatus),
   )
   .option(
     "-s, --status <status:string:status>",
