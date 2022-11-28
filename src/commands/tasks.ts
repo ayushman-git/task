@@ -2,12 +2,18 @@ import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 import {
   ActionHandler,
   Command,
+  StringType,
 } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { DB, Row } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import { TaskPriority, TaskStatus } from "../types/index.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
+
+interface ActionInterface {
+  priority?: (StringType & string) | undefined;
+  status?: (StringType & string) | undefined;
+}
 
 const selectiveQuery = ({ status, priority }: any) => {
   const queriesArr: string[] = [];
@@ -53,7 +59,7 @@ const covertDatetime = (data: Row[]): any[] => {
   });
 };
 
-const action: ActionHandler = ({ priority, status }) => {
+const action: ActionHandler<ActionInterface> = ({ priority, status }) => {
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
 
