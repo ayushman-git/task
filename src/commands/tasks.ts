@@ -4,7 +4,7 @@ import { TaskPriority, TaskStatus } from "../types/index.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
 
-const generateQuery = ({ status, priority }: any) => {
+const selectiveQuery = ({ status, priority }: any) => {
   const queriesArr: string[] = [];
 
   if (status) {
@@ -17,17 +17,21 @@ const generateQuery = ({ status, priority }: any) => {
     return `${acc} ${current}${
       currentIndex === queriesArr.length - 1 ? "" : " AND"
     }`;
-  }, " WHERE");
-  console.log(setQuery);
+  }, "");
+
   return setQuery
-    ? `SELECT * from tasks ${setQuery} ORDER BY created_at DESC`
+    ? `WHERE ${setQuery}`
     : "";
 };
 
-const getTasks = ({ priority, status }: any) => {
+const getTasks = ({ status, priority }: any) => {
   const db = new DB("src/db/main.db");
 
-  const tasks = db.query(generateQuery({ status, priority }));
+  const tasks = db.query(
+    `SELECT * from tasks ${
+      selectiveQuery({ status, priority })
+    } ORDER BY created_at DESC`,
+  );
   db.close();
   return tasks;
 };
