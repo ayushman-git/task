@@ -2,7 +2,6 @@ import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 import {
   ActionHandler,
   Command,
-  StringType,
 } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { DB, Row } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import { TaskPriority, TaskStatus } from "../types/index.ts";
@@ -10,13 +9,10 @@ import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { TASK_TABLE_HEADERS } from "../utils/consts.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
+import { IActionHandler } from "./type.ts";
 
-interface ActionInterface {
-  priority?: (StringType & string) | undefined;
-  status?: (StringType & string) | undefined;
-}
 
-const selectiveQuery = ({ status, priority }: ActionInterface) => {
+const selectiveQuery = ({ status, priority }: IActionHandler) => {
   const queriesArr: string[] = [];
 
   if (status) {
@@ -34,7 +30,7 @@ const selectiveQuery = ({ status, priority }: ActionInterface) => {
   return setQuery ? `WHERE ${setQuery}` : "";
 };
 
-const getTasks = ({ status, priority }: ActionInterface) => {
+const getTasks = ({ status, priority }: IActionHandler) => {
   const db = new DB("src/db/main.db");
 
   const tasks = db.query(
@@ -60,7 +56,7 @@ const covertDatetime = (data: Row[]): any[] => {
   });
 };
 
-const action: ActionHandler<ActionInterface> = ({ priority, status }) => {
+const action: ActionHandler<IActionHandler> = ({ priority, status }) => {
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
 

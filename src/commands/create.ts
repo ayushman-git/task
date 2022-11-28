@@ -3,11 +3,16 @@ import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import {
   ActionHandler,
   Command,
+  StringType,
 } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
+import { IActionHandler } from "./type.ts";
 
-const action: ActionHandler = ({ status, priority }, message: string) => {
+const action: ActionHandler<IActionHandler, [StringType & string]> = (
+  { status, priority },
+  message: string,
+) => {
   const db = new DB("src/db/main.db");
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
@@ -29,15 +34,17 @@ const action: ActionHandler = ({ status, priority }, message: string) => {
 
 export const create = new Command()
   .arguments("<message:string>")
+  // Status flag
   .complete(
     "status",
-    () => [TaskStatus.TODO, TaskStatus.DOING, TaskStatus.DOING],
-  )
-  .complete(
-    "priority",
-    () => [TaskPriority.LOW, TaskPriority.NORMAL, TaskPriority.HIGH],
+    () => Object.values(TaskStatus),
   )
   .option("-s, --status <status:string:status>", "Define status of task.")
+  // Priority flag
+  .complete(
+    "priority",
+    () => Object.values(TaskPriority),
+  )
   .option(
     "-p, --priority <priority:string:priority>",
     "Define priority of task.",
