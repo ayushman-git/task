@@ -2,6 +2,7 @@ import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { DB, Row } from "https://deno.land/x/sqlite/mod.ts";
 import { TaskPriority, TaskStatus } from "../types/index.ts";
+import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
 
@@ -20,9 +21,7 @@ const selectiveQuery = ({ status, priority }: any) => {
     }`;
   }, "");
 
-  return setQuery
-    ? `WHERE ${setQuery}`
-    : "";
+  return setQuery ? `WHERE ${setQuery}` : "";
 };
 
 const getTasks = ({ status, priority }: any) => {
@@ -34,7 +33,7 @@ const getTasks = ({ status, priority }: any) => {
     } ORDER BY created_at DESC`,
   );
   db.close();
-  
+
   return tasks;
 };
 
@@ -52,9 +51,12 @@ const covertDatetime = (data: Row[]): any[] => {
 };
 
 const action = ({ priority, status }: any) => {
+  if (status && !statusCheck(status)) return;
+  if (priority && !priorityCheck(priority)) return;
+
   const headers = ["ID", "Title", "Status", "Priority", "Created", "Due"];
   const body = getTasks({ priority, status });
-  if(!body.length) {
+  if (!body.length) {
     console.log(colors.red("❌ No tasks found!"));
     return;
   }

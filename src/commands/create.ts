@@ -5,6 +5,7 @@ import {
   Command,
 } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
+import { priorityCheck, statusCheck } from "../utils/checks.ts";
 
 const action: ActionHandler = ({ status, priority }, message: string) => {
   const db = new DB("src/db/main.db");
