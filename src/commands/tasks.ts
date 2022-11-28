@@ -64,6 +64,7 @@ const action = ({ priority, status }: any) => {
 };
 
 export const tasks = new Command()
+  // Priority flag
   .complete(
     "priority",
     () => Object.values(TaskPriority),
@@ -72,6 +73,7 @@ export const tasks = new Command()
     "-p, --priority <priority:string:priority>",
     "Displays tasks based on priority.",
   )
+  // Status flag
   .complete(
     "status",
     () => Object.values(TaskStatus),
