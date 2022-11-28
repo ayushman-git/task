@@ -7,6 +7,7 @@ import {
 import { DB, Row } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import { TaskPriority, TaskStatus } from "../types/index.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
+import { TASK_TABLE_HEADERS } from "../utils/consts.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
 
@@ -63,13 +64,13 @@ const action: ActionHandler<ActionInterface> = ({ priority, status }) => {
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
 
-  const headers = ["ID", "Title", "Status", "Priority", "Created", "Due"];
+  
   const body = getTasks({ priority, status });
   if (!body.length) {
     console.log(colors.red("❌ No tasks found!"));
     return;
   }
-  generateTable(headers, covertDatetime(body));
+  generateTable(TASK_TABLE_HEADERS, covertDatetime(body));
 };
 
 export const tasks = new Command()
