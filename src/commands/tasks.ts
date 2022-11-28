@@ -64,6 +64,7 @@ const action = ({ priority, status }: any) => {
 };
 
 export const tasks = new Command()
+  .description("Display all the existings tasks")
   // Priority flag
   .complete(
     "priority",
@@ -82,5 +83,4 @@ export const tasks = new Command()
     "-s, --status <status:string:status>",
     "Displays tasks based on status.",
   )
-  .description("Display all the existings tasks")
   .action(action);
