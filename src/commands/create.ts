@@ -20,13 +20,12 @@ const action: ActionHandler = ({ status, priority }, message: string) => {
     ]);
   } catch (_) {
     console.log(colors.red.bold("Some internal error has occured!"));
+  } finally {
+    db.close();
   }
 
-  db.close();
   console.log(colors.green("✔ Task successfully created! "));
 };
-
-
 
 export const create = new Command()
   .arguments("<message:string>")
