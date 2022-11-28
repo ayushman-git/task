@@ -16,7 +16,7 @@ interface ActionInterface {
   status?: (StringType & string) | undefined;
 }
 
-const selectiveQuery = ({ status, priority }: any) => {
+const selectiveQuery = ({ status, priority }: ActionInterface) => {
   const queriesArr: string[] = [];
 
   if (status) {
@@ -34,7 +34,7 @@ const selectiveQuery = ({ status, priority }: any) => {
   return setQuery ? `WHERE ${setQuery}` : "";
 };
 
-const getTasks = ({ status, priority }: any) => {
+const getTasks = ({ status, priority }: ActionInterface) => {
   const db = new DB("src/db/main.db");
 
   const tasks = db.query(
