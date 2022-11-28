@@ -1,5 +1,8 @@
 import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
-import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
+import {
+  ActionHandler,
+  Command,
+} from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { DB, Row } from "https://deno.land/x/sqlite/mod.ts";
 import { TaskPriority, TaskStatus } from "../types/index.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
@@ -50,7 +53,7 @@ const covertDatetime = (data: Row[]): any[] => {
   });
 };
 
-const action = ({ priority, status }: any) => {
+const action: ActionHandler = ({ priority, status }) => {
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
 

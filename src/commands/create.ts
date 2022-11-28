@@ -1,5 +1,5 @@
 import { TaskPriority, TaskStatus } from "../types/index.ts";
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
+import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import {
   ActionHandler,
   Command,
