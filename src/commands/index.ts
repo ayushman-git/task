@@ -1,5 +1,5 @@
-import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { create, edit, remove, tasks } from "./barrel.ts";
+import { Command } from "cliffy/command/mod.ts";
+import { create, edit, remove, tasks } from "commands";
 
 const _commands = await new Command()
   .name("tasker")

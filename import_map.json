@@ -3,6 +3,7 @@
     "utils": "./src/utils/index.ts",
     "utils/": "./src/utils/",
     "types": "./src/types/index.ts",
+    "commands": "./src/commands/barrel.ts",
     "cliffy/": "https://deno.land/x/cliffy@v0.25.4/",
     "sql": "https://deno.land/x/sqlite@v3.7.0/mod.ts"
   }
