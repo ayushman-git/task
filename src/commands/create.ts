@@ -6,7 +6,7 @@ import { logInternalError, priorityCheck, statusCheck } from "utils";
 
 const action: ActionHandler<IActionHandler, [StringType & string]> = (
   { status, priority },
-  message: string,
+  message,
 ) => {
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;

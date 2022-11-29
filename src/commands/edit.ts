@@ -1,7 +1,12 @@
 import { colors } from "cliffy/ansi/colors.ts";
-import { Command } from "cliffy/command/mod.ts";
-import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
-import { TaskPriority, TaskStatus } from "types";
+import { ActionHandler, Command, NumberType, StringType } from "cliffy/command/mod.ts";
+import { DB } from "sql";
+import { IActionHandler, TaskPriority, TaskStatus } from "types";
+import { logInternalError } from "utils";
+
+interface IActionHandlerExt extends IActionHandler {
+  title?: (StringType & string) | undefined;
+}
 
 const generateQuery = ({ title, status, priority }: any, tid: number) => {
   const queriesArr: string[] = [];
@@ -23,7 +28,10 @@ const generateQuery = ({ title, status, priority }: any, tid: number) => {
   return setQuery ? `UPDATE tasks SET ${setQuery} WHERE id = ${tid}` : "";
 };
 
-const action = ({ title, status, priority }: any, tid: number) => {
+const action: ActionHandler<IActionHandlerExt, [NumberType & number]> = (
+  { title, status, priority },
+  tid,
+) => {
   const db = new DB("src/db/main.db");
 
   try {
@@ -36,7 +44,7 @@ const action = ({ title, status, priority }: any, tid: number) => {
       return;
     }
   } catch (_) {
-    console.log(colors.red.bold("Some internal error has occured!"));
+    logInternalError();
   } finally {
     db.close();
   }
@@ -49,27 +57,30 @@ const action = ({ title, status, priority }: any, tid: number) => {
 };
 
 export const edit = new Command()
+  .description("Edit a task")
   .alias("ed")
   .arguments("<tid:number>")
+  // Title flag
   .option(
     "-t, --title <title:string:title>",
     "Replaces the title.",
   )
+  // Status flag
   .complete(
     "status",
     () => Object.values(TaskStatus),
-  )
-  .complete(
-    "priority",
-    () => Object.values(TaskPriority),
   )
   .option(
     "-s, --status <status:string:status>",
     "Replaces the status.",
   )
+  // Priority flag
+  .complete(
+    "priority",
+    () => Object.values(TaskPriority),
+  )
   .option(
     "-p, --priority <priority:string:priority>",
     "Define priority of task.",
   )
-  .description("Edit a task")
   .action(action);
