@@ -1,6 +1,6 @@
-import { colors } from "cliffy/ansi/colors.ts";
-import { Command } from "cliffy/command/mod.ts";
 import { DB } from "sql";
+import { ActionHandler, Command } from "cliffy/command/mod.ts";
+import { colors } from "cliffy/ansi/colors.ts";
 import { logInternalError } from "utils";
 
 const deleteTask = (tid: number) => {
@@ -32,7 +32,7 @@ const deleteTask = (tid: number) => {
   );
 };
 
-const action = (_: any, tid: number) => {
+const action: ActionHandler<void, [number]> = (_, tid) => {
   deleteTask(tid);
 };
 
