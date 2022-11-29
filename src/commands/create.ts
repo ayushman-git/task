@@ -1,5 +1,4 @@
 import { TaskPriority, TaskStatus } from "../types/index.ts";
-import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import {
   ActionHandler,
   Command,
@@ -9,6 +8,7 @@ import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { IActionHandler } from "./type.ts";
 import { logInternalError } from "../utils/error.ts";
+import { DB } from "../utils/deps.ts";
 
 const action: ActionHandler<IActionHandler, [StringType & string]> = (
   { status, priority },
