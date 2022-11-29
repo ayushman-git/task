@@ -1,5 +1,5 @@
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
-import { TaskPriority, TaskStatus } from "../types/index.ts";
+import { DB } from "sql";
+import { TaskPriority, TaskStatus } from "types";
 
 export const initializeDb = () => {
   const db = new DB("src/db/main.db");
