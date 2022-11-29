@@ -7,6 +7,7 @@ import { tasks } from "./tasks.ts";
 const commands = await new Command()
   .name("tasker")
   .description("Track tasks and notes from the terminal.")
+  // Commands
   .command("create", create)
   .command("tasks", tasks)
   .command("remove", remove)
