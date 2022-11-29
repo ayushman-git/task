@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "utils": "./src/utils/index.ts",
+    "utils/": "./src/utils/"
+  }
+}
