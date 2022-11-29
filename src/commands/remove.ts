@@ -1,6 +1,7 @@
 import { colors } from "cliffy/ansi/colors.ts";
 import { Command } from "cliffy/command/mod.ts";
 import { DB } from "sql";
+import { logInternalError } from "utils";
 
 const deleteTask = (tid: number) => {
   const db = new DB("src/db/main.db");
@@ -20,7 +21,7 @@ const deleteTask = (tid: number) => {
     db.query(`DELETE FROM tasks
       WHERE id = ${tid}`);
   } catch (_) {
-    console.log(colors.red.bold("Some internal error has occured!"));
+    logInternalError();
   } finally {
     db.close();
   }
