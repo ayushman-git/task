@@ -42,10 +42,9 @@ const sortQuery = ({ reverse, sort }: IActionHandlerExt) => {
       WHEN 'low' THEN 0
       WHEN 'normal' THEN 1
       WHEN 'high' THEN 2
-    END DESC,
+    END ${reverse ? "ASC" : "DESC"},
     created_at DESC`;
   }
-  console.log(sortStr);
   return sortStr;
 };
 
