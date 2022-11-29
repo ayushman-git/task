@@ -4,12 +4,11 @@ import {
   Command,
 } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
 import { DB, Row } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
-import { TaskPriority, TaskStatus } from "../types/index.ts";
+import { TaskPriority, TaskStatus, IActionHandler } from "types";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { TASK_TABLE_HEADERS } from "../utils/consts.ts";
 import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
 import { generateTable } from "../utils/tables.ts";
-import { IActionHandler } from "./type.ts";
 
 
 const selectiveQuery = ({ status, priority }: IActionHandler) => {

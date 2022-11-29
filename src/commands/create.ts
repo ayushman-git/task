@@ -1,12 +1,7 @@
-import { TaskPriority, TaskStatus } from "../types/index.ts";
-import {
-  ActionHandler,
-  Command,
-  StringType,
-} from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
-import { IActionHandler } from "./type.ts";
-import { DB } from "../utils/deps.ts";
+import { IActionHandler, TaskPriority, TaskStatus } from "types";
+import { ActionHandler, Command, StringType } from "cliffy/command/mod.ts";
+import { colors } from "cliffy/ansi/colors.ts";
+import { DB } from "sql";
 import { logInternalError, priorityCheck, statusCheck } from "utils";
 
 const action: ActionHandler<IActionHandler, [StringType & string]> = (
