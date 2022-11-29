@@ -35,14 +35,23 @@ const selectiveQuery = ({ status, priority }: IActionHandler) => {
 
 const sortQuery = ({ reverse, sort }: IActionHandlerExt) => {
   let sortStr = "ORDER BY created_at DESC";
+  if (!sort) return sortStr;
 
-  if (sort === "priority") {
+  if (["priority", "p"].includes(sort)) {
     sortStr = `ORDER BY 
     CASE priority
       WHEN 'low' THEN 0
       WHEN 'normal' THEN 1
       WHEN 'high' THEN 2
     END ${reverse ? "ASC" : "DESC"},
+    created_at DESC`;
+  } else if (["status", "s"].includes(sort)) {
+    sortStr = `ORDER BY 
+    CASE status
+      WHEN 'todo' THEN 0
+      WHEN 'doing' THEN 1
+      WHEN 'done' THEN 2
+    END ${reverse ? "DESC" : "ASC"},
     created_at DESC`;
   }
   return sortStr;
