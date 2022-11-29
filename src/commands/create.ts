@@ -33,6 +33,7 @@ const action: ActionHandler<IActionHandler, [StringType & string]> = (
 };
 
 export const create = new Command()
+  .description("Create a new task")
   .arguments("<message:string>")
   // Status flag
   .complete(
@@ -49,5 +50,4 @@ export const create = new Command()
     "-p, --priority <priority:string:priority>",
     "Define priority of task.",
   )
-  .description("Create a new task")
   .action(action);
