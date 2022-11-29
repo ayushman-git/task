@@ -1,15 +1,14 @@
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
+import { colors } from "cliffy/ansi/colors.ts";
+import { ActionHandler, Command } from "cliffy/command/mod.ts";
+import { DB, Row } from "sql";
+import { IActionHandler, TaskPriority, TaskStatus } from "types";
 import {
-  ActionHandler,
-  Command,
-} from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { DB, Row } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
-import { TaskPriority, TaskStatus, IActionHandler } from "types";
-import { priorityCheck, statusCheck } from "../utils/checks.ts";
-import { TASK_TABLE_HEADERS } from "../utils/consts.ts";
-import { convertToReadableDueAndCreated } from "../utils/datetime.ts";
-import { generateTable } from "../utils/tables.ts";
-
+  convertToReadableDueAndCreated,
+  generateTable,
+  priorityCheck,
+  statusCheck,
+  TASK_TABLE_HEADERS,
+} from "utils";
 
 const selectiveQuery = ({ status, priority }: IActionHandler) => {
   const queriesArr: string[] = [];
@@ -59,7 +58,6 @@ const action: ActionHandler<IActionHandler> = ({ priority, status }) => {
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
 
-  
   const body = getTasks({ priority, status });
   if (!body.length) {
     console.log(colors.red("❌ No tasks found!"));
