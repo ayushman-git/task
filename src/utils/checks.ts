@@ -1,5 +1,5 @@
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
-import { TaskPriority, TaskStatus } from "../types/index.ts";
+import { colors } from "cliffy/ansi/colors.ts";
+import { TaskPriority, TaskStatus } from "types";
 
 export const statusCheck = (status: string) => {
   const isCorrect = Object.values(TaskStatus).includes(status as TaskStatus);

@@ -1,4 +1,4 @@
-import { Table } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
+import { Table } from "cliffy/table/mod.ts";
 
 export const generateTable = (headers: string[], body: Array<string[]>) => {
   new Table()
