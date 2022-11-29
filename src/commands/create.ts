@@ -8,15 +8,16 @@ import {
 import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
 import { priorityCheck, statusCheck } from "../utils/checks.ts";
 import { IActionHandler } from "./type.ts";
+import { logInternalError } from "../utils/error.ts";
 
 const action: ActionHandler<IActionHandler, [StringType & string]> = (
   { status, priority },
   message: string,
 ) => {
-  const db = new DB("src/db/main.db");
   if (status && !statusCheck(status)) return;
   if (priority && !priorityCheck(priority)) return;
 
+  const db = new DB("src/db/main.db");
   try {
     db.query("INSERT INTO tasks (title, status, priority) VALUES (?, ?, ?)", [
       message,
@@ -24,7 +25,7 @@ const action: ActionHandler<IActionHandler, [StringType & string]> = (
       priority || TaskPriority.NORMAL,
     ]);
   } catch (_) {
-    console.log(colors.red.bold("Some internal error has occured!"));
+    logInternalError();
   } finally {
     db.close();
   }
