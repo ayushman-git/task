@@ -1,7 +1,7 @@
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
-import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
-import { TaskPriority, TaskStatus } from "../types/index.ts";
+import { colors } from "cliffy/ansi/colors.ts";
+import { Command } from "cliffy/command/mod.ts";
+import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
+import { TaskPriority, TaskStatus } from "types";
 
 const generateQuery = ({ title, status, priority }: any, tid: number) => {
   const queriesArr: string[] = [];
@@ -57,11 +57,11 @@ export const edit = new Command()
   )
   .complete(
     "status",
-    () => [TaskStatus.TODO, TaskStatus.DOING, TaskStatus.DOING],
+    () => Object.values(TaskStatus),
   )
   .complete(
     "priority",
-    () => [TaskPriority.LOW, TaskPriority.NORMAL, TaskPriority.HIGH],
+    () => Object.values(TaskPriority),
   )
   .option(
     "-s, --status <status:string:status>",
