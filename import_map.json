@@ -1,6 +1,8 @@
 {
   "imports": {
     "utils": "./src/utils/index.ts",
-    "utils/": "./src/utils/"
+    "utils/": "./src/utils/",
+    "cliffy/": "https://deno.land/x/cliffy@v0.25.4/",
+    "sql": "https://deno.land/x/sqlite@v3.7.0/mod.ts"
   }
 }

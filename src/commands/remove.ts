@@ -1,6 +1,6 @@
-import { colors } from "https://deno.land/x/cliffy@v0.25.4/ansi/colors.ts";
-import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
+import { colors } from "cliffy/ansi/colors.ts";
+import { Command } from "cliffy/command/mod.ts";
+import { DB } from "sql";
 
 const deleteTask = (tid: number) => {
   const db = new DB("src/db/main.db");
