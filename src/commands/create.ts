@@ -19,7 +19,9 @@ const action: ActionHandler<IActionHandler, [StringType & string]> = (
       priority || TaskPriority.NORMAL,
     ]);
   } catch (_) {
+    console.log(_)
     logInternalError();
+    return;
   } finally {
     db.close();
   }
