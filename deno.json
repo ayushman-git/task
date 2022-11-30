@@ -3,7 +3,7 @@
   "tasks": {
     "create": "deno run --allow-read=. --allow-write=. src/index.ts create 'Priority check'",
     "ls": "deno run --allow-read=. --allow-write=. src/index.ts tasks",
-    "rm": "deno run --allow-read=. --allow-write=. src/index.ts rm 3",
+    "rm": "deno run --allow-read=. --allow-write=. src/index.ts rm",
     "ed": "deno run --allow-read=. --allow-write=. src/index.ts ed 4"
   }
 }

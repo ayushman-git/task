@@ -51,7 +51,7 @@ const deleteAllTasks = () => {
   );
 };
 
-const action: ActionHandler<IActionHandler, [number]> = async (
+const action: ActionHandler<IActionHandler, [number?]> = async (
   { all },
   tid,
 ) => {
@@ -63,13 +63,18 @@ const action: ActionHandler<IActionHandler, [number]> = async (
       deleteAllTasks();
     }
     return;
+  } else {
+    if (tid) {
+      deleteTask(tid);
+      return;
+    }
+    console.log(colors.red("No task ID was provided!"));
   }
-  deleteTask(tid);
 };
 
 export const remove = new Command()
   .alias("rm")
-  .arguments("<tid:number>")
+  .arguments("[tid:number]")
   .description("Removes task(s)")
   // All flag
   .option("-a, --all [status:boolean]", "Deletes all the tasks.")
