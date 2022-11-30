@@ -46,6 +46,9 @@ const deleteAllTasks = () => {
   } finally {
     db.close();
   }
+  console.log(
+    colors.green("All tasks has been deleted!"),
+  );
 };
 
 const action: ActionHandler<IActionHandler, [number]> = async (
@@ -53,10 +56,13 @@ const action: ActionHandler<IActionHandler, [number]> = async (
   tid,
 ) => {
   if (all) {
-    const confirmed: boolean = await Confirm.prompt("Can you confirm?");
+    const confirmed: boolean = await Confirm.prompt(
+      colors.red.bold("All tasks will be deleted! Are you sure?"),
+    );
     if (confirmed) {
       deleteAllTasks();
     }
+    return;
   }
   deleteTask(tid);
 };
