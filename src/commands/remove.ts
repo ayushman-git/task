@@ -1,7 +1,12 @@
 import { DB } from "sql";
 import { ActionHandler, Command } from "cliffy/command/mod.ts";
+import { Confirm } from "cliffy/prompt/confirm.ts"
 import { colors } from "cliffy/ansi/colors.ts";
 import { logInternalError } from "utils";
+
+interface IActionHandler {
+  all?: boolean | undefined
+}
 
 const deleteTask = (tid: number) => {
   const db = new DB("src/db/main.db");
@@ -32,7 +37,11 @@ const deleteTask = (tid: number) => {
   );
 };
 
-const action: ActionHandler<void, [number]> = (_, tid) => {
+const action: ActionHandler<IActionHandler, [number]> = async ({all}, tid) => {
+  if(all) {
+    const confirmed: boolean = await Confirm.prompt("Can you confirm?");
+    console.log(confirmed)
+  }
   deleteTask(tid);
 };
 
@@ -40,4 +49,6 @@ export const remove = new Command()
   .alias("rm")
   .arguments("<tid:number>")
   .description("Removes task(s)")
+  // All flag
+  .option("-a, --all [status:boolean]", "Deletes all the tasks.")
   .action(action);
